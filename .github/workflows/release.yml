@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - run: sudo apt-get update && sudo apt-get install libboost-test-dev libpthread-stubs0-dev libgtest-dev -y
+      - run: sudo apt-get update && sudo apt-get install libsqlite3-dev libboost-test-dev libboost-system-dev libboost-filesystem-dev libpthread-stubs0-dev libgtest-dev -y
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
       - run: cmake --build . --target test
@@ -36,8 +36,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./join-server-0.0.${{ github.run_number }}-Linux.deb
-          asset_name: join-server-0.0.${{ github.run_number }}-Linux.deb
+          asset_path: ./join_server-0.0.${{ github.run_number }}-Linux.deb
+          asset_name: join_server-0.0.${{ github.run_number }}-Linux.deb
           asset_content_type: application/vnd.debian.binary-package
   build-documentation:
     permissions: write-all
