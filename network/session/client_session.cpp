@@ -1,4 +1,4 @@
-#include "join_server.h"
+#include "../server/join_server.h"
 
 #include <boost/algorithm/string.hpp>
 #include <iostream>
@@ -8,7 +8,7 @@ void ClientSession::do_read()
 	auto self(shared_from_this());
 
 	socket_.async_read_some( // У сокета вызываем async_read_some
-		boost::asio::buffer(data_read, max_length),
+		boost::asio::buffer(data_read, MAX_LENGTH),
 		[this, self](boost::system::error_code errcode, std::size_t length)
 		{
 			if (errcode) {
@@ -98,10 +98,15 @@ void ClientSession::shutdown()
 	std::cout << "Shutdown finished. Session: " << session_id << std::endl;
 }
 
+void ClientSession::handle_request_result() override
+{
+
+}
+
 // Очистка буфера для приема данных по сети.
 void ClientSession::clear_data_read()
 {
-	for (size_t i = 0; i < max_length; ++i) {
+	for (size_t i = 0; i < MAX_LENGTH; ++i) {
 		data_read[i] = 0;
 	}
 }
@@ -109,13 +114,13 @@ void ClientSession::clear_data_read()
 // Подготовка данных для отправки по сети.
 void ClientSession::prepare_data_send(const std::string& data)
 {
-	for (size_t i = 0; i < max_length; ++i) {
+	for (size_t i = 0; i < MAX_LENGTH; ++i) {
 		data_send[i] = 0;
 	}
 
 	for (size_t i = 0; i < data.length(); ++i) {
 		data_send[i] = data.c_str()[i];
-		if (i == (max_length - 1)) {
+		if (i == (MAX_LENGTH - 1)) {
 			break;
 		}
 	}

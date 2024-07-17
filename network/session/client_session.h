@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../../interfaces/interface_awaitor.h"
+
 #include <boost/asio.hpp>
 #include <boost/core/noncopyable.hpp>
 
@@ -18,7 +20,7 @@ using join_server_shared = std::shared_ptr<JoinServer>;
 /**
 * @brief Класс - сессия пользователя. Позволяет пользователям подключаться к серверу в рамках отдельной сессии.
 */
-class ClientSession : public std::enable_shared_from_this<ClientSession>
+class ClientSession : public std::enable_shared_from_this<ClientSession>, public IAwaitor
 {
 public:
 	
@@ -48,6 +50,8 @@ public:
 	* Выключение сессии.
 	*/
 	void shutdown();
+
+	void handle_request_result() override;
 
 private: // methods
 
@@ -79,13 +83,15 @@ private: // methods
 private: // data
 	const join_server_shared join_server_ptr; // Для связи с сервером, создавшим данную сессию.
 
+	const request_parser_shared request_parser_ptr; // Для отправки запросов к базе данных.
+
 	tcp::socket socket_;
 	int session_id; // Идентификатор сессии.
 	
-	enum { max_length = 1024 };
+	static constexpr std::size_t MAX_LENGTH = 1024;
 
-	char data_read[max_length]; // Для получения данных из сети.
-	char data_send[max_length];	// Для отправки данных.
+	char data_read[MAX_LENGTH]; // Для получения данных из сети.
+	char data_send[MAX_LENGTH];	// Для отправки данных.
 
 	bool shutdown_session_flag; // Флаг, что завершается работа сессии.
 };
