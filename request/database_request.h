@@ -21,7 +21,12 @@ enum class DataTable
 struct DatabaseRequest
 {
 //public:
-	DatabaseRequest() = delete;
+	DatabaseRequest()
+		: request_type(RequestType::UNKNOWN)
+		, data_table(DataTable::UNKNOWN)
+		, id(-1)
+		, name("")
+	{}
 	
 	explicit DatabaseRequest(RequestType rtype)
 		: request_type(rtype)

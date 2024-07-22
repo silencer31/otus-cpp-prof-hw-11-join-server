@@ -20,4 +20,5 @@ public:
 
 	virtual void clear() = 0;
 
+	virtual void notify(int ) = 0;
 };

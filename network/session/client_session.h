@@ -26,8 +26,14 @@ public:
 	
 	ClientSession(
 		const join_server_shared& js_ptr,
+		const parser_shared& prsr_ptr,
+		const req_coll_shared& rqcl_ptr,
+		const res_coll_shared& rscl_ptr,
 		tcp::socket socket, int s_id)
 		: join_server_ptr(js_ptr)
+		, parser_ptr(prsr_ptr)
+		, req_coll_ptr(rqcl_ptr)
+		, res_coll_ptr(rscl_ptr)
 		, socket_(std::move(socket))
 		, session_id(s_id)
 	{}
@@ -51,6 +57,9 @@ public:
 	*/
 	void shutdown();
 
+	/**
+	* Обработать результат выполнения запроса к базе.
+	*/
 	void handle_request_result() override;
 
 private: // methods
@@ -83,7 +92,12 @@ private: // methods
 private: // data
 	const join_server_shared join_server_ptr; // Для связи с сервером, создавшим данную сессию.
 
-	const request_parser_shared request_parser_ptr; // Для отправки запросов к базе данных.
+	const parser_shared	parser_ptr;
+	const req_coll_shared req_coll_ptr;
+	const res_coll_shared res_coll_ptr;
+
+
+	//const request_parser_shared request_parser_ptr; // Для отправки запросов к базе данных.
 
 	tcp::socket socket_;
 	int session_id; // Идентификатор сессии.

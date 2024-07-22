@@ -17,3 +17,12 @@ void SessionNotifier::clear() override
         it = awaitors.erase(it);
     }
 }
+
+void SessionNotifier::notify(int session_id) override
+{
+    if (!awaitors.contains(session_id)) {
+        return;
+    }
+
+    awaitors[session_id]->handle_request_result();
+}

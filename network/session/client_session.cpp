@@ -19,32 +19,9 @@ void ClientSession::do_read()
 
 				return;
 			}
-
+			
 			std::cout << "Session: " << session_id << ". Received: " << length << " bytes\n" << data_read << std::endl;
 
-			// Разделяем полученные данные через \n
-			std::vector<std::string> strings;
-			boost::split(strings, data_read, boost::is_any_of("\n"));
-
-			for (const std::string& str : strings)
-			{
-				// Нужно ли завершить сессию.
-				if (0 == strcmp(str.data(), "exit")) {
-					join_server_ptr->close_session(session_id);
-					return;
-				}
-
-				// Нужно ли выключить сервер.
-				if (0 == strcmp(str.data(), "shutdown")) {
-					//std::this_thread::sleep_for(std::chrono::seconds(1));
-					join_server_ptr->shutdown_server(session_id);
-					return;
-				}
-
-				// Отправляем данные в контекст.
-				//async::receive(handle, str.data(), strlen(str.data()));
-			}
-			
 			// Обработка запроса 
 			handle_request();
 		}
@@ -129,5 +106,7 @@ void ClientSession::prepare_data_send(const std::string& data)
 // Обработка запроса от клиента.
 void ClientSession::handle_request()
 {
+	std::string err_text;
 
+	DatabaseRequest db_request = parser_ptr->parse_command();
 }

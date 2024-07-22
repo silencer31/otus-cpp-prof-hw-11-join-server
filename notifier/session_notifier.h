@@ -9,7 +9,7 @@ using awaitors_map = std::map<int, awaitor_shared>; // Для коллекции сессий - ож
 class SessionNotifier final : public INotifier
 {
 public:
-	//SessionNotifier() = default;
+	SessionNotifier() = default;
 	
 	~SessionNotifier() {
 		clear();
@@ -21,6 +21,10 @@ public:
 
 	void clear() override;
 
+	void notify(int session_id) override;
+
 private:
 	awaitors_map awaitors; // Коллекция ожидающих выполнения запроса к базе.
 };
+
+using notifier_shared = std::shared_ptr<INotifier>;

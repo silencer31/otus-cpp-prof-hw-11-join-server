@@ -4,6 +4,7 @@
 
 #include <queue>
 
+// Коллекция пар id сессии и результат выполнения запроса.
 using result_queue = std::queue<std::pair<int, RequestResult>>;
 
 class ResultCollector final : public IResCollector

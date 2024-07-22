@@ -3,8 +3,11 @@
 #include <iostream>
 
 JoinServer::JoinServer(boost::asio::io_context& io_context, const unsigned short port, const char* file_path)
-	: notifier_ptr(std::make_shared<SessionNotifier>())
-	, parser_ptr(std::make_shared<CommandParser>())
+	: parser_ptr( std::make_shared<CommandParser>() )
+	, notifier_ptr(std::make_shared<SessionNotifier>())
+	, req_coll_ptr(std::make_shared<RequestCollector>())
+	, res_coll_ptr(std::make_shared<ResultCollector>())
+	, db_manager_ptr(std::make_shared<DatabaseManager>(notifier_ptr))
 	, acceptor_(io_context, tcp::endpoint(tcp::v4(), port))
 {
 	//std::cout << "Bulk_Constructor" << std::endl;
@@ -39,6 +42,9 @@ void JoinServer::do_accept()
 			// —оздаем клиентскую сессию и запускаем прием данных.
 			session_shared session_ptr = std::make_shared<ClientSession>(
 				shared_from_this(),
+				parser_ptr,
+				req_coll_ptr,
+				res_coll_ptr,
 				std::move(socket),
 				session_number //  ажда€ сесси€ знает свой номер.
 			);

@@ -4,6 +4,7 @@
 
 #include <queue>
 
+// Коллекция пар id сессии и запрос к базе данных.
 using request_queue = std::queue<std::pair<int, DatabaseRequest>>;
 
 class RequestCollector final : public IReqCollector

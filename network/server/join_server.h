@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../notifier/session_notifier.h"
 #include "../../parser/command_parser.h"
+#include "../../database/database_manager.h"
 
 #include "../session/client_session.h"
 
@@ -41,9 +41,12 @@ private: // methods
 	void do_accept();
 	
 private: // data
-	const std::shared_ptr<INotifier> notifier_ptr;
-	const std::shared_ptr<IParser>	 parser_ptr;
-
+	
+	const parser_shared	parser_ptr;
+	const notifier_shared notifier_ptr;
+	const req_coll_shared req_coll_ptr;
+	const res_coll_shared res_coll_ptr;
+	const db_manager_shared db_manager_ptr;
 
 	tcp::acceptor acceptor_;
 

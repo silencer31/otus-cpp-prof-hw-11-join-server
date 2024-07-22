@@ -11,7 +11,7 @@ public:
 	virtual ~IAwaitor() = default;
 
 	/**
-	* .
+	* @brief Обработать результат выполнения запроса к базе.
 	*/
 	virtual void handle_request_result() = 0;
 

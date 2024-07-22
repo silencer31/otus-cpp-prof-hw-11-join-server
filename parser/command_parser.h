@@ -15,3 +15,5 @@ public:
 	*/
 	DatabaseRequest parse_command(const std::string& command, std::string& error) override;
 };
+
+using parser_shared = std::shared_ptr<IParser>;
