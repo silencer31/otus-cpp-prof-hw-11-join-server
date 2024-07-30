@@ -1,27 +1,68 @@
 #include "command_parser.h"
 
+#include <vector>
+
+#include <boost/algorithm/string.hpp>
+#include <boost/format.hpp> 
+#include <boost/lexical_cast.hpp>
+
 DatabaseRequest CommandParser::parse_command(const std::string& command, std::string& error) override
 {
-	// Разделяем полученные данные через \n
+	// Разделяем полученные данные через пробел.
 	std::vector<std::string> strings;
-	boost::split(strings, data_read, boost::is_any_of("\n"));
+	boost::split(strings, data_read, boost::is_any_of(" "));
 
-	for (const std::string& str : strings)
-	{
-		// Нужно ли завершить сессию.
-		if (0 == strcmp(str.data(), "exit")) {
-			join_server_ptr->close_session(session_id);
-			return;
-		}
-
-		// Нужно ли выключить сервер.
-		if (0 == strcmp(str.data(), "shutdown")) {
-			//std::this_thread::sleep_for(std::chrono::seconds(1));
-			join_server_ptr->shutdown_server(session_id);
-			return;
-		}
-
-		// Отправляем данные в контекст.
-		//async::receive(handle, str.data(), strlen(str.data()));
+	// 
+	if (strings.empty()) {
+		error = "request split by space error";
+		return DatabaseRequest();
 	}
+
+	// 
+	if (strings.size() > 4) {
+		error = "command contains too many arguments";
+		return DatabaseRequest();
+	}
+
+
+	if (strings.at(0) == "INSERT") {
+		if (strings.size() != 4) {
+			error = "unsupported request format";
+			return DatabaseRequest();
+		}
+
+
+	}
+
+
+	if (strings.at(0) == "TRUNCATE") {
+		if (strings.size() != 2) {
+			error = "unsupported request format";
+			return DatabaseRequest();
+		}
+
+		if (strings.at(1) == "A") {
+			return DatabaseRequest(RequestType::TRUNCATE, DataTable::A);
+		}
+
+		if (strings.at(1) == "B") {
+			return DatabaseRequest(RequestType::TRUNCATE, DataTable::B);
+		}
+
+		error = "unsupported table name";
+		return DatabaseRequest();
+	}
+
+
+	if (strings.at(0) == "INTERSECTION") {
+		return DatabaseRequest(RequestType::INTERSECTION);
+	}
+
+
+	if (strings.at(0) == "SYMMETRIC_DIFFERENCE") {
+		return DatabaseRequest(RequestType::DIFFERENCE);
+	}
+
+	error = "unknown request type";
+	return DatabaseRequest();
 }

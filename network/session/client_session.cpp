@@ -1,6 +1,5 @@
 #include "../server/join_server.h"
 
-#include <boost/algorithm/string.hpp>
 #include <iostream>
 
 void ClientSession::do_read()
@@ -22,8 +21,27 @@ void ClientSession::do_read()
 			
 			std::cout << "Session: " << session_id << ". Received: " << length << " bytes\n" << data_read << std::endl;
 
-			// Обработка запроса 
-			handle_request();
+			// Нужно ли завершить сессию.
+			if (0 == strcmp(data_read, "exit")) {
+				join_server_ptr->close_session(session_id);
+				return;
+			}
+
+			// Нужно ли выключить сервер.
+			if (0 == strcmp(data_read, "shutdown")) {
+				//std::this_thread::sleep_for(std::chrono::seconds(1));
+				join_server_ptr->shutdown_server(session_id);
+				return;
+			}
+
+			// Проверяем корректность формата команды.
+			if ((length < 2) || (data_read[length-1] != '\n')) {
+				reply_error("incorrect request");
+				return;
+			}
+
+			// Обработка запроса. 
+			handle_request(length-1);
 		}
 	);
 }
@@ -75,6 +93,7 @@ void ClientSession::shutdown()
 	std::cout << "Shutdown finished. Session: " << session_id << std::endl;
 }
 
+// 
 void ClientSession::handle_request_result() override
 {
 
@@ -104,9 +123,38 @@ void ClientSession::prepare_data_send(const std::string& data)
 }
 
 // Обработка запроса от клиента.
-void ClientSession::handle_request()
+void ClientSession::handle_request(const std::size_t& length)
 {
-	std::string err_text;
+	std::string request(data_send, length);
 
-	DatabaseRequest db_request = parser_ptr->parse_command();
+	std::string error_text;
+
+	DatabaseRequest db_request = parser_ptr->parse_command(request, error_text);
+
+	// Если из полученной строки не удалось составить корректный запрос, отвечаем клиенту об ошибке.
+	if (db_request.request_type == RequestType::UNKNOWN) {
+		reply_error(err_text);
+		return;
+	}
+
+	// Сообщаем клиенту об успешной обработке запроса.
+	reply_ok();
+
+	// Отправляем запрос в очередь на исполнение.
+
+}
+
+
+void ClientSession::reply_ok()
+{
+	std::string reply_text("OK\n");
+	do_write(reply_text);
+}
+
+// 
+void ClientSession::reply_error(const std::string& error_text)
+{
+	std::string reply_text = boost::str(boost::format("ERR %1%\n") % error_text);
+
+	do_write(reply_text);
 }

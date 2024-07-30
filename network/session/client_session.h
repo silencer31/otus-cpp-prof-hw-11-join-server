@@ -87,7 +87,17 @@ private: // methods
 	/**
 	* Обработка запроса от клиента.
 	*/
-	void handle_request();
+	void handle_request(const std::size_t& length);
+
+	/**
+	* Сообщить клиенту об успешной обработке запроса..
+	*/
+	void reply_ok();
+
+	/**
+	* Сообщить клиенту об ошибке.
+	*/
+	void reply_error(const std::string& error_text);
 
 private: // data
 	const join_server_shared join_server_ptr; // Для связи с сервером, создавшим данную сессию.
