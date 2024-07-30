@@ -1,0 +1,17 @@
+<map id="notifier/session_notifier.h" name="notifier/session_notifier.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="232,5,396,31"/>
+<area shape="rect" id="Node000002" href="$database__manager_8h.html" title=" " alt="" coords="110,79,308,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,42,228,81,225,76,282,38"/>
+<area shape="rect" id="Node000008" href="$session__notifier_8cpp.html" title=" " alt="" coords="332,79,510,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="346,38,404,76,401,81,343,42"/>
+<area shape="rect" id="Node000003" href="$database__manager_8cpp.html" title=" " alt="" coords="5,160,218,186"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,116,128,162,125,158,181,112"/>
+<area shape="rect" id="Node000004" href="$join__server_8h.html" title=" " alt="" coords="242,153,373,193"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="237,113,285,150,281,154,234,117"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title=" " alt="" coords="144,249,218,274"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="268,204,200,251,197,246,265,200"/>
+<area shape="rect" id="Node000006" href="$join__server_8cpp.html" title=" " alt="" coords="242,241,373,282"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="310,209,310,241,305,241,305,209"/>
+<area shape="rect" id="Node000007" href="$client__session_8cpp.html" title=" " alt="" coords="397,241,548,282"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="360,198,437,239,434,243,357,203"/>
+</map>

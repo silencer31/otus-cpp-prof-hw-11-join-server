@@ -1,0 +1,20 @@
+<map id="network/session/client_session.h" name="network/session/client_session.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="450,5,601,46"/>
+<area shape="rect" id="Node000002" href="$interface__awaitor_8h.html" title=" " alt="" coords="5,94,158,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="450,44,177,97,173,97,172,92,176,91,449,39"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="104,183,171,208"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="450,33,397,39,338,51,278,69,223,96,202,112,183,132,154,171,150,168,179,128,198,108,220,92,276,65,337,46,396,34,449,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="233,102,338,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="472,49,335,98,333,93,470,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="362,102,545,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="511,48,475,91,471,88,507,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="569,102,626,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="544,45,580,88,576,91,540,48"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="650,102,697,127"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="560,44,641,91,638,96,558,49"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="721,102,778,127"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="583,44,709,92,712,93,710,97,707,96,581,49"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="802,102,854,127"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="602,39,694,61,792,91,794,92,792,97,790,97,692,66,601,44"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,134,122,168,118,171,93,137"/>
+</map>

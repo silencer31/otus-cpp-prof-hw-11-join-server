@@ -1,0 +1,5 @@
+<map id="IAwaitor" name="IAwaitor">
+<area shape="rect" id="Node000001" title="Êëàññ" alt="" coords="21,5,91,31"/>
+<area shape="rect" id="Node000002" href="$classClientSession.html" title="Êëàññ &#45; ñåññèÿ ïîëüçîâàòåëÿ. Ïîçâîëÿåò ïîëüçîâàòåëÿì ïîäêëþ÷àòüñÿ ê ñåðâåðó â ðàìêàõ îòäåëüíîé ñåññèè." alt="" coords="5,79,107,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="59,46,59,79,53,79,53,46"/>
+</map>

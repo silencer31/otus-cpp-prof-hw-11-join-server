@@ -1,0 +1,11 @@
+<map id="notifier/session_notifier.h" name="notifier/session_notifier.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="54,5,217,31"/>
+<area shape="rect" id="Node000002" href="$interface__notifier_8h.html" title=" " alt="" coords="5,79,148,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,33,102,68,98,65,124,30"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="172,86,218,112"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="146,30,179,73,175,76,142,33"/>
+<area shape="rect" id="Node000003" href="$interface__awaitor_8h.html" title=" " alt="" coords="11,168,142,193"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,120,79,152,74,152,74,120"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="43,241,110,267"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="79,194,79,226,74,226,74,194"/>
+</map>

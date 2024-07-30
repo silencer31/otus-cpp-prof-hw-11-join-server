@@ -1,0 +1,24 @@
+<map id="interfaces/interface_awaitor.h" name="interfaces/interface_awaitor.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="293,5,426,46"/>
+<area shape="rect" id="Node000002" href="$interface__notifier_8h.html" title=" " alt="" coords="241,94,374,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="342,61,322,95,317,92,338,58"/>
+<area shape="rect" id="Node000011" href="$client__session_8h.html" title=" " alt="" coords="374,183,526,223"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="379,59,442,181,438,183,374,61"/>
+<area shape="rect" id="Node000003" href="$session__notifier_8h.html" title=" " alt="" coords="187,190,350,216"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,150,277,191,272,189,290,148"/>
+<area shape="rect" id="Node000004" href="$database__manager_8h.html" title=" " alt="" coords="12,271,211,297"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="232,226,137,273,134,268,230,221"/>
+<area shape="rect" id="Node000010" href="$session__notifier_8cpp.html" title=" " alt="" coords="235,271,412,297"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="288,227,317,269,313,272,283,230"/>
+<area shape="rect" id="Node000005" href="$database__manager_8cpp.html" title=" " alt="" coords="5,352,218,378"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="114,313,114,352,109,352,109,313"/>
+<area shape="rect" id="Node000006" href="$join__server_8h.html" title=" " alt="" coords="312,345,444,386"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="168,299,313,342,311,347,166,304"/>
+<area shape="rect" id="Node000007" href="$main_8cpp.html" title=" " alt="" coords="215,441,288,467"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="339,397,271,443,268,438,336,392"/>
+<area shape="rect" id="Node000008" href="$join__server_8cpp.html" title=" " alt="" coords="312,434,444,474"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="381,401,381,433,376,433,376,401"/>
+<area shape="rect" id="Node000009" href="$client__session_8cpp.html" title=" " alt="" coords="468,434,619,474"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="430,391,507,431,505,436,428,395"/>
+<area shape="poly" id="edge11_Node000011_Node000006" title=" " alt="" coords="446,239,427,298,397,346,392,343,422,296,441,238"/>
+</map>

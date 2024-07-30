@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['rem_5fawaitor_0',['rem_awaitor',['../classINotifier.html#ac0413dea08098da95479c8a5a77c7de3',1,'INotifier::rem_awaitor()'],['../classSessionNotifier.html#a1da2fcc5c33c16be84e2fed65b059bf7',1,'SessionNotifier::rem_awaitor()']]],
+  ['req_5fcoll_5fshared_1',['req_coll_shared',['../database__manager_8h.html#ae7be4143a0619899ea478b0b75312d10',1,'database_manager.h']]],
+  ['request_5fcollector_2ecpp_2',['request_collector.cpp',['../request__collector_8cpp.html',1,'']]],
+  ['request_5fcollector_2eh_3',['request_collector.h',['../request__collector_8h.html',1,'']]],
+  ['request_5fqueue_4',['request_queue',['../request__collector_8h.html#a67d24fa2e5d6c7e368befcbbf7e1b3d0',1,'request_collector.h']]],
+  ['request_5fresult_2eh_5',['request_result.h',['../request__result_8h.html',1,'']]],
+  ['request_5ftype_6',['request_type',['../structDatabaseRequest.html#ac9a1c974e04c0f733680acfe32f451e2',1,'DatabaseRequest']]],
+  ['requestcollector_7',['RequestCollector',['../classRequestCollector.html',1,'']]],
+  ['requestresult_8',['RequestResult',['../structRequestResult.html',1,'RequestResult'],['../structRequestResult.html#a11b3c219b35c4e10e2e1379958db50c2',1,'RequestResult::RequestResult()']]],
+  ['requesttype_9',['RequestType',['../database__request_8h.html#ae10b07f2d0feb103db7fe4cfd192e5af',1,'database_request.h']]],
+  ['res_5fcoll_5fshared_10',['res_coll_shared',['../database__manager_8h.html#a0fdb987679ca3093c56f8464ab3ea440',1,'database_manager.h']]],
+  ['result_11',['result',['../structRequestResult.html#a60bb67d80ec60f69a4098ffcba3dff85',1,'RequestResult']]],
+  ['result_5fcollector_2ecpp_12',['result_collector.cpp',['../result__collector_8cpp.html',1,'']]],
+  ['result_5fcollector_2eh_13',['result_collector.h',['../result__collector_8h.html',1,'']]],
+  ['result_5fqueue_14',['result_queue',['../result__collector_8h.html#a0a549b761d27899b356c100a703fab77',1,'result_collector.h']]],
+  ['resultcollector_15',['ResultCollector',['../classResultCollector.html',1,'']]],
+  ['resulttype_16',['ResultType',['../request__result_8h.html#aa71b5fc2a82d29a91db3a734ff892a49',1,'request_result.h']]]
+];

@@ -1,0 +1,28 @@
+<map id="request/database_request.h" name="request/database_request.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="147,5,329,31"/>
+<area shape="rect" id="Node000002" href="$interface__parser_8h.html" title=" " alt="" coords="94,79,227,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,44,182,80,178,77,214,40"/>
+<area shape="rect" id="Node000009" href="$interface__req__collector_8h.html" title=" " alt="" coords="256,79,388,120"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="264,40,303,77,299,81,260,44"/>
+<area shape="rect" id="Node000003" href="$command__parser_8h.html" title=" " alt="" coords="64,175,236,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,136,154,175,149,175,154,135"/>
+<area shape="rect" id="Node000004" href="$join__server_8h.html" title=" " alt="" coords="103,345,234,386"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="102,210,71,230,47,258,41,277,47,296,72,323,105,342,103,347,69,327,42,298,35,277,42,255,68,226,100,205"/>
+<area shape="rect" id="Node000008" href="$command__parser_8cpp.html" title=" " alt="" coords="57,264,243,290"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="153,217,153,263,147,263,147,217"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title=" " alt="" coords="5,441,79,467"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="129,397,61,443,58,438,126,392"/>
+<area shape="rect" id="Node000006" href="$join__server_8cpp.html" title=" " alt="" coords="103,434,234,474"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="171,401,171,433,166,433,166,401"/>
+<area shape="rect" id="Node000007" href="$client__session_8cpp.html" title=" " alt="" coords="258,434,410,474"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="221,391,298,431,295,436,218,395"/>
+<area shape="rect" id="Node000010" href="$request__collector_8h.html" title=" " alt="" coords="266,168,391,208"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="327,135,330,167,325,167,322,135"/>
+<area shape="rect" id="Node000011" href="$request__collector_8cpp.html" title=" " alt="" coords="266,256,391,297"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="331,224,331,256,326,256,326,224"/>
+<area shape="rect" id="Node000012" href="$database__manager_8h.html" title=" " alt="" coords="415,264,613,290"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="386,213,489,261,487,266,383,218"/>
+<area shape="poly" id="edge13_Node000012_Node000004" title=" " alt="" coords="451,296,236,350,234,345,450,291"/>
+<area shape="rect" id="Node000013" href="$database__manager_8cpp.html" title=" " alt="" coords="408,352,620,378"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="517,305,517,352,511,352,511,305"/>
+</map>
