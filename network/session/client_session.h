@@ -8,7 +8,6 @@
 #include <boost/asio.hpp>
 #include <boost/core/noncopyable.hpp>
 
-#include <thread>
 #include <memory>
 #include <map>
 #include <vector>
@@ -44,9 +43,7 @@ public:
 	{}
 
 	~ClientSession() {
-		std::cout << "session destr. id " << session_id << std::endl;
-		shutdown();
-		//std::this_thread::sleep_for(std::chrono::seconds(2));
+		shutdown();		
 	}
 
 	/**

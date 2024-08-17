@@ -236,7 +236,5 @@ void DatabaseManager::worker_thread()
     }
 
     thread_active = false;
-
-    std::cout << "^_^_^" << std::endl;
 }
 

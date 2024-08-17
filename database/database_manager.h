@@ -6,8 +6,8 @@
 #include "sql/sql_manager.h"
 
 #include <atomic>
-
-#include <iostream>
+#include <thread>
+#include <condition_variable>
 
 using req_coll_shared = std::shared_ptr<IReqCollector>;
 using res_coll_shared = std::shared_ptr<IResCollector>;
@@ -40,7 +40,7 @@ public:
 			requests_thread.join();
 		}
 		
-		std::cout << "Database Manager - Destructor" << std::endl;
+		//std::cout << "Database Manager - Destructor" << std::endl;
 	}
 
 	/**
