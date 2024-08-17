@@ -148,7 +148,7 @@ RequestResult DatabaseManager::commit_intersection()
     vector_str b_names;
     get_names_by_ids("B", equal_ids, b_names);
 
-    for ( int i = 0; i < equal_ids.size(); ++ i) {
+    for (size_t i = 0; i < equal_ids.size(); ++ i) {
         req_result.res_strings.push(boost::str(boost::format("%1%,%2%,%3%") % equal_ids.at(i) % a_names.at(i) % b_names.at(i)));
     }
 
@@ -176,11 +176,11 @@ RequestResult DatabaseManager::commit_difference()
     vector_str b_names;
     get_names_by_ids("B", b_unique_ids, b_names);
 
-    for (int i = 0; i < a_unique_ids.size(); ++i) {
+    for (size_t i = 0; i < a_unique_ids.size(); ++i) {
         req_result.res_strings.push(boost::str(boost::format("%1%,%2%,") % a_unique_ids.at(i) % a_names.at(i) ));
     }
 
-    for (int i = 0; i < b_unique_ids.size(); ++i) {
+    for (size_t i = 0; i < b_unique_ids.size(); ++i) {
         req_result.res_strings.push(boost::str(boost::format("%1%,,%2%") % b_unique_ids.at(i) % b_names.at(i)));
     }
 
