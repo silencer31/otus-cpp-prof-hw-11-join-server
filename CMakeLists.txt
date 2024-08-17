@@ -36,19 +36,33 @@ configure_file(version.h.in version.h)
 if(WIN32) 
 add_executable(join_server
 	main.cpp
-	join_server.cpp
-	client_session.cpp
+	parser/command_parser.cpp
+	notifier/session_notifier.cpp
+	network/server/join_server.cpp
+	network/session/client_session.cpp
+	database/database_manager.cpp
+	database/sql/sql_manager.cpp
+	collectors/request_collector.cpp
+	collectors/result_collector.cpp
 	"${sqlite3_SOURCE_DIR}/sqlite3.c"
 )
 else()
 add_executable(join_server
 	main.cpp
-	join_server.cpp
-	client_session.cpp
+	parser/command_parser.cpp
+	notifier/session_notifier.cpp
+	network/server/join_server.cpp
+	network/session/client_session.cpp
+	database/database_manager.cpp
+	database/sql/sql_manager.cpp
+	collectors/request_collector.cpp
+	collectors/result_collector.cpp
 )
 endif()
 
-add_executable(join_client join_client.cpp)
+add_executable(join_client
+	network/client/join_client.cpp
+)
 
 add_library(lib_join_server lib.cpp)
 
@@ -59,6 +73,10 @@ set_target_properties(
     PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
+)
+
+target_include_directories(join_server 
+	PUBLIC "${sqlite3_SOURCE_DIR}"	
 )
 
 target_include_directories(lib_join_server 
@@ -77,7 +95,6 @@ target_link_libraries(join_server PRIVATE
     lib_join_server
 )
 endif()
-
 
 target_link_libraries(join_client PRIVATE
     ${Boost_LIBRARIES}

@@ -1,6 +1,4 @@
-#include "join_server.h"
-
-#include <boost/filesystem/operations.hpp>
+#include "network/server/join_server.h"
 
 #include <iostream>
 
@@ -35,21 +33,16 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    // Проверяем наличие указанного файла с базой данных.
-    if (!boost::filesystem::exists(db_name)) {
-        std::cout << "Specified data base file not found!" << std::endl;
-        return -1;
-    }
-
+    
     try
     {
         ba::io_context io_context;
         
         // Создание сервера.
-        std::shared_ptr<JoinServer> task_server_ptr = std::make_shared<JoinServer>(
+        std::shared_ptr<JoinServer> join_server_ptr = std::make_shared<JoinServer>(
             io_context,
             static_cast<unsigned short>(port), 
-            db_name.c_str()
+            db_name
         );
 
         // 

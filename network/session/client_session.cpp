@@ -1,9 +1,15 @@
 #include "../server/join_server.h"
 
+#include <boost/format.hpp> 
+#include <boost/lexical_cast.hpp>
+
 #include <iostream>
 
+// 
 void ClientSession::do_read()
 {
+	clear_data_read();
+
 	auto self(shared_from_this());
 
 	socket_.async_read_some( // У сокета вызываем async_read_some
@@ -14,7 +20,9 @@ void ClientSession::do_read()
 				std::cout << " Session: " << session_id << ". Read data boost system error code: " << errcode.message() << std::endl;
 
 				// Сообщить серверу о необходимости выключения сессии
-				join_server_ptr->close_session(session_id);
+				if (!shutdown_server_flag) {
+					join_server_ptr->close_session(session_id);
+				}
 
 				return;
 			}
@@ -29,7 +37,9 @@ void ClientSession::do_read()
 
 			// Нужно ли выключить сервер.
 			if (0 == strcmp(data_read, "shutdown")) {
+				std::cout << "closing server..." << std::endl;
 				//std::this_thread::sleep_for(std::chrono::seconds(1));
+				shutdown_server_flag = true;
 				join_server_ptr->shutdown_server(session_id);
 				return;
 			}
@@ -46,6 +56,7 @@ void ClientSession::do_read()
 	);
 }
 
+// 
 void ClientSession::do_write(const std::string& answer)
 {
 	auto self(shared_from_this());
@@ -66,8 +77,6 @@ void ClientSession::do_write(const std::string& answer)
 			if (shutdown_session_flag) { // Если получена команда на выключение, больше не пытаемся читать из сети.
 				return;
 			}
-
-			do_read();
 		}
 	);
 }
@@ -79,7 +88,7 @@ void ClientSession::shutdown()
 		return;
 	}
 
-	std::cout << "Shutdown process started. Session: " << session_id << std::endl;
+	std::cout << "Session closing process started. id: " << session_id << std::endl;
 
 	boost::system::error_code ignore;
 
@@ -90,13 +99,31 @@ void ClientSession::shutdown()
 
 	socket_.close(ignore);
 
-	std::cout << "Shutdown finished. Session: " << session_id << std::endl;
+	std::cout << "Session closing finished. id: " << session_id << std::endl;
 }
 
 // 
-void ClientSession::handle_request_result() override
+void ClientSession::handle_request_result()
 {
+	RequestResult result = res_coll_ptr->get_result(session_id);
 
+	res_coll_ptr->del_result(session_id);
+
+	// Была ли ошибка при попытке выполнить запрос.
+	if (result.res_type == ResultType::ERR) {
+		reply_error(result.error_text);
+		return;
+	}
+
+	// Запрос успешно выполнен.
+	// Отправляем по очереди результирующие строки, если они есть.
+	while (!result.res_strings.empty()) {
+		do_write(boost::str(boost::format("%1%\n") % result.res_strings.front()));
+		result.res_strings.pop();
+	}
+
+	// Отправляем ОК.
+	reply_ok();
 }
 
 // Очистка буфера для приема данных по сети.
@@ -125,7 +152,7 @@ void ClientSession::prepare_data_send(const std::string& data)
 // Обработка запроса от клиента.
 void ClientSession::handle_request(const std::size_t& length)
 {
-	std::string request(data_send, length);
+	std::string request(data_read, length);
 
 	std::string error_text;
 
@@ -133,28 +160,27 @@ void ClientSession::handle_request(const std::size_t& length)
 
 	// Если из полученной строки не удалось составить корректный запрос, отвечаем клиенту об ошибке.
 	if (db_request.request_type == RequestType::UNKNOWN) {
-		reply_error(err_text);
+		reply_error(error_text);
 		return;
 	}
 
-	// Сообщаем клиенту об успешной обработке запроса.
-	reply_ok();
-
 	// Отправляем запрос в очередь на исполнение.
+	req_coll_ptr->add_request(session_id, db_request);
 
+	// Оповещаем менеджер запросов к базе о поступлении нового запроса в очередь запросов.
+	db_manager_ptr->new_request_notify();
 }
 
-
+// 
 void ClientSession::reply_ok()
 {
-	std::string reply_text("OK\n");
-	do_write(reply_text);
+	do_write("OK\n");
+	do_read();
 }
 
 // 
 void ClientSession::reply_error(const std::string& error_text)
 {
-	std::string reply_text = boost::str(boost::format("ERR %1%\n") % error_text);
-
-	do_write(reply_text);
+	do_write(boost::str(boost::format("ERR %1%\n") % error_text));
+	do_read();
 }

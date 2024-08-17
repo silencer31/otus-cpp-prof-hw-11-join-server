@@ -1,5 +1,6 @@
 #pragma once
 
+#include <queue>
 #include <string>
 
 enum class ResultType
@@ -12,9 +13,21 @@ enum class ResultType
 struct RequestResult
 {
 	RequestResult()
-		: result(ResultType::OK)
+		: res_type(ResultType::OK)
 	{}
 
-	ResultType result;
-	std::string error; // Текст ошибки, если она была
+	RequestResult(ResultType rt)
+		: res_type(rt)
+	{}
+
+	RequestResult(ResultType rt, const std::string& et)
+		: res_type(rt)
+		, error_text(et)
+	{}
+
+	ResultType res_type;
+
+	std::queue<std::string> res_strings; // Строки, полученные в результате выполнения запроса.
+
+	std::string error_text; // Текст ошибки, если она была
 };

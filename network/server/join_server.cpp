@@ -2,16 +2,20 @@
 
 #include <iostream>
 
-JoinServer::JoinServer(boost::asio::io_context& io_context, const unsigned short port, const char* file_path)
+JoinServer::JoinServer(boost::asio::io_context& io_context, const unsigned short port, const std::string& db_name)
 	: parser_ptr( std::make_shared<CommandParser>() )
 	, notifier_ptr(std::make_shared<SessionNotifier>())
 	, req_coll_ptr(std::make_shared<RequestCollector>())
 	, res_coll_ptr(std::make_shared<ResultCollector>())
-	, db_manager_ptr(std::make_shared<DatabaseManager>(notifier_ptr))
+	, db_manager_ptr(std::make_shared<DatabaseManager>(notifier_ptr, req_coll_ptr, res_coll_ptr, db_name))
 	, acceptor_(io_context, tcp::endpoint(tcp::v4(), port))
 {
-	//std::cout << "Bulk_Constructor" << std::endl;
+	// Устанавливаем связь с базой данных и создаём её, если файла с базой ещё нет.
+	if ( !db_manager_ptr->connect_database()) {
+		return;
+	}
 
+	// Начинаем приём входящих соединений.
 	do_accept();
 }
 
@@ -45,6 +49,7 @@ void JoinServer::do_accept()
 				parser_ptr,
 				req_coll_ptr,
 				res_coll_ptr,
+				db_manager_ptr,
 				std::move(socket),
 				session_number // Каждая сессия знает свой номер.
 			);
@@ -76,7 +81,6 @@ void JoinServer::shutdown_server(int session_id)
 	shutdown_flag = true;
 
 	// Выключение вызвавшей сессии.
-	notifier_ptr->rem_awaitor(session_id);
 	close_session(session_id);
 
 	// В цикле завершаем все сессии.
@@ -89,7 +93,13 @@ void JoinServer::shutdown_server(int session_id)
 
 	// Отключаем прием новых соединений.
 	acceptor_.cancel();
-	//acceptor_.close();
+
+	db_manager_ptr->stop_process();
+
+	// Ждём корректного завершения всех потоков.
+	while (db_manager_ptr->active()) {
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 }
 
 // Закрытие сессии.

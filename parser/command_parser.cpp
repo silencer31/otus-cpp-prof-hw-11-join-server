@@ -1,21 +1,25 @@
 #include "command_parser.h"
 
+#include <string>
 #include <vector>
+#include <stdexcept>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp> 
 #include <boost/lexical_cast.hpp>
 
-DatabaseRequest CommandParser::parse_command(const std::string& command, std::string& error) override
+#include <iostream>
+
+DatabaseRequest CommandParser::parse_command(const std::string& command, std::string& error)
 {
 	// Разделяем полученные данные через пробел.
 	std::vector<std::string> strings;
-	boost::split(strings, data_read, boost::is_any_of(" "));
+	boost::split(strings, command, boost::is_any_of(" "));
 
-	// 
+	// Не удалось разделить на строки через пробел.
 	if (strings.empty()) {
-		error = "request split by space error";
-		return DatabaseRequest();
+		strings.reserve(1);
+		strings.push_back(command);
 	}
 
 	// 
@@ -24,17 +28,47 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 		return DatabaseRequest();
 	}
 
-
+	// INSERT - добавление данных в таблицу.
 	if (strings.at(0) == "INSERT") {
 		if (strings.size() != 4) {
 			error = "unsupported request format";
 			return DatabaseRequest();
 		}
 
+		// Имя таблицы.
+		DataTable table_name;
 
+		if (strings.at(1) == "A") {
+			table_name = DataTable::A;
+		}
+		else if (strings.at(1) == "B") {
+			table_name = DataTable::B;
+		}
+		else {
+			error = "incorrect table name";
+			return DatabaseRequest();
+		}
+
+		// id
+		int id_value;
+		std::size_t pos{};
+
+		try {
+			id_value = std::stoi(strings.at(2), &pos);
+		}
+		catch (std::invalid_argument const& ex) {
+			error = ex.what();
+			return DatabaseRequest();
+		}
+		catch (std::out_of_range const& ex) {
+			error = ex.what();
+			return DatabaseRequest();
+		}
+
+		return DatabaseRequest(RequestType::INSERT, table_name, id_value, strings.at(3));
 	}
 
-
+	// TRUNCATE - очистка указанной таблицы.
 	if (strings.at(0) == "TRUNCATE") {
 		if (strings.size() != 2) {
 			error = "unsupported request format";
@@ -49,16 +83,16 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 			return DatabaseRequest(RequestType::TRUNCATE, DataTable::B);
 		}
 
-		error = "unsupported table name";
+		error = "incorrect table name";
 		return DatabaseRequest();
 	}
 
-
+	// INTERSECTION - пересечение множеств.
 	if (strings.at(0) == "INTERSECTION") {
 		return DatabaseRequest(RequestType::INTERSECTION);
 	}
 
-
+	// SYMMETRIC_DIFFERENCE - симметрическая разница множеств.
 	if (strings.at(0) == "SYMMETRIC_DIFFERENCE") {
 		return DatabaseRequest(RequestType::DIFFERENCE);
 	}

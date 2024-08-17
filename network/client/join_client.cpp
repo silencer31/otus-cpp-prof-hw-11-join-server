@@ -2,7 +2,8 @@
 #include <thread>
 #include <boost/asio.hpp>
 
-#include <string.h>
+#include <queue>
+#include <string>
 
 using boost::asio::ip::tcp;
 
@@ -66,6 +67,15 @@ public:
         return true;
     }
 
+
+    std::string read_reply()
+    {
+        read_until(_sock, read_buffer, "\n");
+        const std::string reply_txt = make_string(read_buffer);
+        read_buffer.consume(reply_txt.size());
+        return reply_txt;
+    }
+
 private:
     /**
     * Подключение к серверу.
@@ -108,6 +118,12 @@ private:
         connected = false;
     }
 
+    std::string make_string(boost::asio::streambuf& streambuf)
+    {
+        return { boost::asio::buffers_begin(streambuf.data()),
+                boost::asio::buffers_end(streambuf.data()) };
+    }
+
 private:
     ba::io_context _io_context;
     ba::ip::tcp::endpoint _end_point;
@@ -118,13 +134,15 @@ private:
     std::string last_error; // Ошибка, полученная в процессе сетевого взаимодействия.
 
     std::size_t bytes_written; // Сколько байт удалось отправить.
+
+    boost::asio::streambuf read_buffer;
 };
 
 int main(int argc, char* argv[])
 {
     if (argc < 3)
     {
-        std::cerr << "Usage: bulk_client <host> <port>" << std::endl;
+        std::cerr << "Usage: join_client <host> <port>" << std::endl;
         return 1;
     }
 
@@ -137,73 +155,53 @@ int main(int argc, char* argv[])
 
     const std::string server_addr(argv[1]);
 
-    JoinClient bulk_client(server_addr, static_cast<unsigned short>(port));
+    JoinClient join_client(server_addr, static_cast<unsigned short>(port));
 
-    if (!bulk_client.is_connected()) {
+    if (!join_client.is_connected()) {
         std::cerr << "Unable to connect to server " << server_addr << ". Port: " << port << std::endl;
         return -1;
     }
-    /*
-    char* str_ptr = nullptr;
-    size_t data_len = 0;
 
-    // Отправка на сервер данных, указанных в консоли при запуске клиента.
-    if (argc > 3) {
-        for (int i = 3; i < argc; ++i) {
-            if (i == (argc - 1)) {
-                bulk_client.send_message(argv[i]);
-                break;
-            }
-
-            data_len = strlen(argv[i]);
-            str_ptr = (char*)malloc(data_len + 2);
-            strcpy(str_ptr, argv[i]);
-            str_ptr[data_len] = '\n';
-            str_ptr[data_len + 1] = 0;
-            //std::string str_to_send(argv[i] + "\n");
-            bulk_client.send_message(str_ptr);
-            free(str_ptr);
-            //std::this_thread::sleep_for(std::chrono::seconds(1));
-            //std::cout << argv[i] << std::endl;
-        }
-    }
-    else { // Использовать заготовленный набор данных.
-        bulk_client.send_message("a");
-        bulk_client.send_message("b");
-        bulk_client.send_message("\n");
-        bulk_client.send_message("c");
-    }
-
-
+    // Наполняем очередь запросов тестовыми данными.
+    std::queue<std::string> requests;
     
-    client.write("a");
-    client.write("b");
-    client.write("\n");
-    client.write("c");
-    client.write("\n");
-    client.write("d");
-    client.write("\n");
-    client.write("\n");
-    client.write("\n");
-    client.write("f");
-    client.write("\n");
-    client.write("g");
-    client.write("{");
-    client.write("\n");
-    client.write("h");
-    client.write("\n");
-    client.write("i");
-    client.write("\n");
-    client.write("j");
-    client.write("\n");
-    client.write("k");
-    client.write("\n");
-    client.write("\n");
-    client.write("l");
-    client.write("\n");
-    */
+    requests.push("INSERT A 0 lean\n");
+    requests.push("INSERT A 0 understand\n");
+    requests.push("INSERT A 1 sweater\n");
+    requests.push("INSERT A 2 frank\n");
+    
+    requests.push("INSERT B 6 flour\n");
+    requests.push("INSERT B 7 wonder\n");
+    requests.push("INSERT B 8 selection\n");
 
+    requests.push("INSERT A 3 violation\n");
+    requests.push("INSERT A 4 quality\n");
+    requests.push("INSERT A 5 precision\n");
 
+    requests.push("INSERT B 3 proposal\n");
+    requests.push("INSERT B 4 example\n");
+    requests.push("INSERT B 5 lake\n");
+
+    requests.push("INTERSECTION\n");
+    requests.push("SYMMETRIC_DIFFERENCE\n");
+    
+    //requests.push("TRUNCATE\n");
+    
+    requests.push("TRUNCATE A\n");
+    requests.push("TRUNCATE B\n");
+
+    // Отправляем в цикле.
+    while (!requests.empty()) {
+        join_client.send_message(requests.front().c_str());
+        requests.pop();
+
+        std::cout << join_client.read_reply() << std::endl;
+    }
+        
+    // Выключаем сервер.
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    join_client.send_message("shutdown");
+    
 
     return 0;
 }

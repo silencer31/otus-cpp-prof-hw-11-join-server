@@ -5,10 +5,10 @@
 enum class RequestType
 {
 	UNKNOWN,
-	INSERT,
-	TRUNCATE,
-	INTERSECTION,
-	DIFFERENCE
+	INSERT,			// Добавление данных в таблицу.
+	TRUNCATE,		// Очистка указанной таблицы.
+	INTERSECTION,	// Пересечение множеств.
+	DIFFERENCE		// Симметрическая разница множеств.
 };
 
 enum class DataTable
@@ -42,9 +42,9 @@ struct DatabaseRequest
 		, name("")
 	{}
 	
-	explicit DatabaseRequest(RequestType rtype, DataTable table, uint8_t id_value, const std::string& txt)
+	explicit DatabaseRequest(RequestType rtype, DataTable table, int id_value, const std::string& txt)
 		: request_type(rtype)
-		, data_table(DataTable::UNKNOWN)
+		, data_table(table)
 		, id(id_value)
 		, name(txt)
 	{}
@@ -70,6 +70,6 @@ struct DatabaseRequest
 //private:
 	const RequestType request_type;
 	const DataTable data_table;
-	const int8_t id;
+	const int id;
 	const std::string name;
 };

@@ -2,6 +2,8 @@
 
 #include "../interfaces/interface_parser.h"
 
+#include <memory>
+
 class CommandParser final : public IParser
 {
 public:

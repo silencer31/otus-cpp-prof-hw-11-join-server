@@ -4,7 +4,8 @@
 
 #include <map>
 
-using awaitors_map = std::map<int, awaitor_shared>; // Для коллекции сессий - ожидателей результата.
+// Для коллекции сессий - ожидателей результата.
+using awaitors_map = std::map<int, awaitor_shared>;
 
 class SessionNotifier final : public INotifier
 {
@@ -24,7 +25,7 @@ public:
 	void notify(int session_id) override;
 
 private:
-	awaitors_map awaitors; // Коллекция ожидающих выполнения запроса к базе.
+	awaitors_map awaitors; // Коллекция сессий, ожидающих выполнения запроса к базе.
 };
 
 using notifier_shared = std::shared_ptr<INotifier>;
