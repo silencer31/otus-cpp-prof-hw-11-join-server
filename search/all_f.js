@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['read_5freply_0',['read_reply',['../classJoinClient.html#a9e30626c26224ba75e634b3a637a32af',1,'JoinClient']]],
+  ['receiving_1',['receiving',['../classClientSession.html#a3acb6b5fc3cc4f9c5aad0d42bbc12eea',1,'ClientSession']]],
+  ['rem_5fawaitor_2',['rem_awaitor',['../classINotifier.html#ac0413dea08098da95479c8a5a77c7de3',1,'INotifier::rem_awaitor()'],['../classSessionNotifier.html#a1da2fcc5c33c16be84e2fed65b059bf7',1,'SessionNotifier::rem_awaitor()']]],
+  ['remove_5fawaitor_3',['remove_awaitor',['../classJoinServer.html#af09fa57d330215d14d45c0b23aa4efb3',1,'JoinServer']]],
+  ['req_5fcoll_5fshared_4',['req_coll_shared',['../database__manager_8h.html#ae7be4143a0619899ea478b0b75312d10',1,'database_manager.h']]],
+  ['request_5fcollector_2ecpp_5',['request_collector.cpp',['../request__collector_8cpp.html',1,'']]],
+  ['request_5fcollector_2eh_6',['request_collector.h',['../request__collector_8h.html',1,'']]],
+  ['request_5ferror_7',['request_error',['../structDatabaseRequest.html#a2ac8dab5e625a42e99d8648ccd5e2d96',1,'DatabaseRequest']]],
+  ['request_5fqueue_8',['request_queue',['../request__collector_8h.html#aea16397ef1827415676c21b1c6497ba7',1,'request_collector.h']]],
+  ['request_5fresult_2eh_9',['request_result.h',['../request__result_8h.html',1,'']]],
+  ['request_5ftype_10',['request_type',['../structDatabaseRequest.html#ac9a1c974e04c0f733680acfe32f451e2',1,'DatabaseRequest']]],
+  ['requestcollector_11',['RequestCollector',['../classRequestCollector.html',1,'']]],
+  ['requestresult_12',['RequestResult',['../structRequestResult.html',1,'RequestResult'],['../structRequestResult.html#a11b3c219b35c4e10e2e1379958db50c2',1,'RequestResult::RequestResult()'],['../structRequestResult.html#aa818bd90efb8edabcd653f70b77cf857',1,'RequestResult::RequestResult(ResultType rt)'],['../structRequestResult.html#ae1ab1743df217b16e0c4e087134dbab7',1,'RequestResult::RequestResult(ResultType rt, const std::string &amp;et)']]],
+  ['requesttype_13',['RequestType',['../database__request_8h.html#ae10b07f2d0feb103db7fe4cfd192e5af',1,'database_request.h']]],
+  ['res_5fcoll_5fshared_14',['res_coll_shared',['../database__manager_8h.html#a0fdb987679ca3093c56f8464ab3ea440',1,'database_manager.h']]],
+  ['res_5fstrings_15',['res_strings',['../structRequestResult.html#a38d5ec848bcac0a96b9bb7103b94cf79',1,'RequestResult']]],
+  ['res_5ftype_16',['res_type',['../structRequestResult.html#af9545683edd5669be0b081a385ed7961',1,'RequestResult']]],
+  ['result_5fcollector_2ecpp_17',['result_collector.cpp',['../result__collector_8cpp.html',1,'']]],
+  ['result_5fcollector_2eh_18',['result_collector.h',['../result__collector_8h.html',1,'']]],
+  ['result_5fmap_19',['result_map',['../result__collector_8h.html#a095c0378a08411fd56a162f9fe3513d4',1,'result_collector.h']]],
+  ['resultcollector_20',['ResultCollector',['../classResultCollector.html',1,'']]],
+  ['resulttype_21',['ResultType',['../request__result_8h.html#aa71b5fc2a82d29a91db3a734ff892a49',1,'request_result.h']]]
+];

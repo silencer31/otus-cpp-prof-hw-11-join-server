@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,55,135,96"/>
+<area shape="rect" id="Node000001" href="$classClientSession.html" title="Êëàññ &#45; ñåññèÿ ïîëüçîâàòåëÿ. Ïîçâîëÿåò ïîëüçîâàòåëÿì ïîäêëþ÷àòüñÿ ê ñåðâåðó â ðàìêàõ îòäåëüíîé ñåññèè." alt="" coords="183,9,284,35"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="148,47,191,33,192,38,150,52"/>
+<area shape="rect" id="Node000003" href="$classJoinServer.html" title="Êëàññ &#45; ñåðâåð îáðàáîòêè ñåòåâûõ ïîäêëþ÷åíèé è óïðàâëåíèÿ ñåññèÿìè ïîëüçîâàòåëåé." alt="" coords="192,63,275,88"/>
+<area shape="poly" id="edge6_Node000000_Node000003" title=" " alt="" coords="151,73,191,73,191,78,151,78"/>
+<area shape="rect" id="Node000002" href="$classIAwaitor.html" title="Êëàññ èíòåðôåéñ äëÿ ðåàãèðîâàíèÿ íà âûïîëíåííûé çàïðîñ." alt="" coords="35,5,105,31"/>
+<area shape="poly" id="edge7_Node000002_Node000001" title=" " alt="" coords="120,17,183,18,182,24,120,22"/>
+</map>

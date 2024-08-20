@@ -1,0 +1,13 @@
+<map id="collectors/request_collector.h" name="collectors/request_collector.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="129,5,253,46"/>
+<area shape="rect" id="Node000002" href="$interface__req__collector_8h.html" title=" " alt="" coords="58,94,201,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,48,155,83,150,80,175,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="226,102,282,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="207,45,238,88,234,91,203,48"/>
+<area shape="rect" id="Node000003" href="$database__request_8h.html" title=" " alt="" coords="5,183,137,223"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,137,95,171,91,168,114,134"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="160,190,216,216"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="145,134,174,176,170,179,141,137"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="44,271,98,297"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="74,224,74,256,68,256,68,224"/>
+</map>

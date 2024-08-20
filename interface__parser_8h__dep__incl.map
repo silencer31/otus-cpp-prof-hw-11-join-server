@@ -1,0 +1,19 @@
+<map id="interfaces/interface_parser.h" name="interfaces/interface_parser.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="281,5,414,46"/>
+<area shape="rect" id="Node000002" href="$command__parser_8h.html" title=" " alt="" coords="262,94,433,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="350,62,350,93,345,93,345,62"/>
+<area shape="rect" id="Node000003" href="$client__session_8h.html" title=" " alt="" coords="176,168,327,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="323,132,277,169,273,165,319,128"/>
+<area shape="rect" id="Node000009" href="$command__parser_8cpp.html" title=" " alt="" coords="351,175,536,201"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="375,128,430,173,427,177,372,132"/>
+<area shape="rect" id="Node000004" href="$join__server_8h.html" title=" " alt="" coords="186,256,317,297"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="254,224,254,256,249,256,249,224"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title=" " alt="" coords="5,352,79,378"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="191,306,72,354,70,350,189,301"/>
+<area shape="rect" id="Node000006" href="$join__server_8cpp.html" title=" " alt="" coords="103,345,234,386"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="224,310,189,346,185,343,220,307"/>
+<area shape="rect" id="Node000007" href="$client__session_8cpp.html" title=" " alt="" coords="258,345,410,386"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="283,307,317,343,313,346,279,310"/>
+<area shape="rect" id="Node000008" href="$client__session__handle_8cpp.html" title=" " alt="" coords="434,345,586,386"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="325,300,452,342,450,347,324,305"/>
+</map>

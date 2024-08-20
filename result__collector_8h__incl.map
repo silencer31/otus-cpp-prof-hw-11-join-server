@@ -1,0 +1,16 @@
+<map id="collectors/result_collector.h" name="collectors/result_collector.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="124,5,304,31"/>
+<area shape="rect" id="Node000002" href="$interface__res__collector_8h.html" title=" " alt="" coords="5,79,148,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,34,124,74,122,69,192,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="144,256,201,282"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="214,32,180,242,174,241,209,31"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="221,86,268,112"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="221,30,237,71,232,73,216,32"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="292,86,349,112"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="232,29,294,75,291,79,228,34"/>
+<area shape="rect" id="Node000003" href="$request__result_8h.html" title=" " alt="" coords="21,168,142,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,120,82,152,77,152,75,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="106,207,149,244,145,248,102,211"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="55,256,108,282"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="84,209,84,241,79,241,79,209"/>
+</map>

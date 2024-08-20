@@ -1,0 +1,7 @@
+<map id="ClientSession" name="ClientSession">
+<area shape="rect" id="Node000001" title="Êëàññ &#45; ñåññèÿ ïîëüçîâàòåëÿ. Ïîçâîëÿåò ïîëüçîâàòåëÿì ïîäêëþ÷àòüñÿ ê ñåðâåðó â ðàìêàõ îòäåëüíîé ñåññèè." alt="" coords="122,94,223,120"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,190,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,56,163,92,159,95,125,59"/>
+<area shape="rect" id="Node000003" href="$classIAwaitor.html" title="Êëàññ èíòåðôåéñ äëÿ ðåàãèðîâàíèÿ íà âûïîëíåííûé çàïðîñ." alt="" coords="214,13,283,38"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,52,186,95,182,92,224,48"/>
+</map>

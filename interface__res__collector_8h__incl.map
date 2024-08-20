@@ -1,0 +1,9 @@
+<map id="interfaces/interface_res_collector.h" name="interfaces/interface_res_collector.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="6,5,138,46"/>
+<area shape="rect" id="Node000002" href="$request__result_8h.html" title=" " alt="" coords="12,94,133,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,47,75,78,70,78,70,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,183,62,208"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="65,136,48,170,44,167,60,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="86,183,139,208"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="84,134,102,167,97,170,80,136"/>
+</map>
