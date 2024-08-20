@@ -43,7 +43,7 @@ public:
 	{}
 
 	~ClientSession() {
-		shutdown();		
+		shutdown_session();
 	}
 
 	/**
@@ -54,9 +54,30 @@ public:
 	}
 
 	/**
-	* Выключение сессии.
+	* Узнать, идёт ли получение данных.
 	*/
-	void shutdown();
+	bool receiving() const {
+		return receiving_data;
+	}
+
+	/**
+	* Узнать, идёт ли отправка данных.
+	*/
+	bool sending() const {
+		return sending_result;
+	}
+
+	/**
+	* Прекратить приём новых запросов, но закончить обработку уже полученных.
+	*/
+	void stop_activity() {
+		stop_acception = true;
+	}
+
+	/**
+	* Завершение работы сессии.
+	*/
+	void shutdown_session();
 
 	/**
 	* Обработать результат выполнения запроса к базе.
@@ -86,9 +107,24 @@ private: // methods
 	void prepare_data_send(const std::string& data);
 
 	/**
-	* Обработка запроса от клиента.
+	* Данные отправлены клиенту.
 	*/
-	void handle_request(const std::size_t& length);
+	void handle_data_sent();
+
+	/**
+	* Ошибка отправки данных.
+	*/
+	void handle_write_error();
+
+	/**
+	* Отправить результат выполнения запроса.
+	*/
+	void send_request_result();
+
+	/**
+	* Отправить следующую строку из результата выполнения запроса.
+	*/
+	void send_result_string();
 
 	/**
 	* Сообщить клиенту об успешной обработке запроса..
@@ -121,8 +157,12 @@ private: // data
 	char data_read[MAX_LENGTH]; // Для получения данных из сети.
 	char data_send[MAX_LENGTH];	// Для отправки данных.
 
-	bool shutdown_session_flag{false}; // Флаг, что завершается работа сессии.
-	bool shutdown_server_flag{false};  // Флаг, что завершается работа сервера.
+	bool receiving_data{ false }; // Флаг, что в данный момент идёт получение и анализ данных от клиента.
+	bool sending_result{ false }; // Флаг, что в данный момент идёт отправка клиенту результата выполнения запроса к базе данных. 
+	bool stop_acception{ false }; // Флаг, что сессия должна прекратить приём новых запросов.
+
+	RequestResult cur_req_result{ ResultType::UNKNOWN }; // Текущий результат на отправку клиенту.
+	std::queue<RequestResult> results_to_send; // Очередь результатов, ожидающих отправки клиенту.
 };
 
 using session_shared = std::shared_ptr<ClientSession>;

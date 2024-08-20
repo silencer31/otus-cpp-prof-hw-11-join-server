@@ -24,14 +24,19 @@ public:
 	* ѕолучена команда на выключение сервера.
 	* @param session_id уникальный id сессии, из которой получена команда.
 	*/
-	void shutdown_server(int session_id);
+	void shutdown_server(const int session_id);
 
 	/**
 	* «акрытие сессии.
 	* @param session_id уникальный id сессии.
 	*/
-	void close_session(int session_id);
+	void close_session(const int session_id);
 
+	/**
+	* ”далить сессию из списка клиентов, ожидающих результат выполнени€ запроса.
+	* @param session_id уникальный id сессии.
+	*/
+	void remove_awaitor(const int session_id);
 
 private: // methods
 

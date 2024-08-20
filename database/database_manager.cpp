@@ -97,7 +97,7 @@ RequestResult DatabaseManager::commit_db_request(const DatabaseRequest & db_requ
 
     switch (db_request.request_type) {
     case RequestType::UNKNOWN:
-        return RequestResult( ResultType::ERR, "Unknown request type");
+        return RequestResult( ResultType::ERR, db_request.request_error);
         break;
     case RequestType::INSERT:
         table_name = (db_request.data_table == DataTable::A ? "A" : "B");
@@ -123,7 +123,7 @@ RequestResult DatabaseManager::commit_db_request(const DatabaseRequest & db_requ
         return commit_difference();
         break;
     default:
-        return RequestResult(ResultType::ERR, "Unknown request type");
+        return RequestResult(ResultType::ERR, db_request.request_error);
         break;
     };
 
@@ -190,6 +190,8 @@ RequestResult DatabaseManager::commit_difference()
 // Узнаём о появлении нового запроса в очереди запросов.
 void DatabaseManager::new_request_notify()
 {
+    committing_request = true;
+
     // Оповещаем ожидающий поток о появлении нового запроса к базе.
     cond_var.notify_one();
 }
@@ -225,11 +227,15 @@ void DatabaseManager::worker_thread()
         // Выполняем запрос к базе данных.
         const RequestResult result = commit_db_request(id_req.second);
 
-        // Отпускаем мьютекс.
-        req_wait_lock.unlock();
-
         // Отправляем результат выполнения в коллекцию с результатами.
         res_coll_ptr->add_result(id_req.first, result);
+
+        if (req_coll_ptr->empty()) {
+            committing_request = false;
+        }
+
+        // Отпускаем мьютекс.
+        req_wait_lock.unlock();
 
         // Оповещаем соответствующую сессию о выполнении запроса.
         notifier_ptr->notify(id_req.first);

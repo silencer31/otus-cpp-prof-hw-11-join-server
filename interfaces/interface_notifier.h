@@ -3,7 +3,7 @@
 #include "interface_awaitor.h"
 
 /**
-* @brief Класс 
+* @brief Класс интерфейс для работы с сессиями, ожидающими результат выполнения запроса.
 */
 class INotifier
 {

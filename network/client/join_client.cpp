@@ -1,14 +1,20 @@
 #include <iostream>
 #include <thread>
 #include <boost/asio.hpp>
+#include <boost/filesystem/operations.hpp>
 
 #include <queue>
 #include <string>
+#include <fstream>
 
 using boost::asio::ip::tcp;
 
 namespace ba = boost::asio;
 
+
+/**
+* @brief Класс реализующий клиент для отправки данных на сервер.
+*/
 class JoinClient
 {
 public:
@@ -142,7 +148,7 @@ int main(int argc, char* argv[])
 {
     if (argc < 3)
     {
-        std::cerr << "Usage: join_client <host> <port>" << std::endl;
+        std::cerr << "Usage: join_client <host> <port> <filename>" << std::endl;
         return 1;
     }
 
@@ -155,6 +161,13 @@ int main(int argc, char* argv[])
 
     const std::string server_addr(argv[1]);
 
+    
+    if (argc == 4 && !boost::filesystem::exists(argv[3])) {
+        std::cerr << "Provided file doesn't exist! " << argv[3] << std::endl;;
+        return -1;
+    }
+
+
     JoinClient join_client(server_addr, static_cast<unsigned short>(port));
 
     if (!join_client.is_connected()) {
@@ -165,43 +178,73 @@ int main(int argc, char* argv[])
     // Наполняем очередь запросов тестовыми данными.
     std::queue<std::string> requests;
     
-    requests.push("INSERT A 0 lean\n");
-    requests.push("INSERT A 0 understand\n");
-    requests.push("INSERT A 1 sweater\n");
-    requests.push("INSERT A 2 frank\n");
-    
-    requests.push("INSERT B 6 flour\n");
-    requests.push("INSERT B 7 wonder\n");
-    requests.push("INSERT B 8 selection\n");
+    // Читаем запросы из файла.
+    if (argc == 4) {
+        std::ifstream reqsfile(argv[3]);
+        if (!reqsfile.is_open()) {
+            std::cerr << "Unable to open provided file! " << argv[3] << std::endl;;
+            return -1;
+        }
 
-    requests.push("INSERT A 3 violation\n");
-    requests.push("INSERT A 4 quality\n");
-    requests.push("INSERT A 5 precision\n");
+        std::string reqstr;
 
-    requests.push("INSERT B 3 proposal\n");
-    requests.push("INSERT B 4 example\n");
-    requests.push("INSERT B 5 lake\n");
+        while (reqsfile.good()) {
+            std::getline(reqsfile, reqstr);
+            requests.push(reqstr + "\n");
+        }
+    }
+    else { // Файл не задан 
+        requests.push("INSERT A 0 lean\n");
+        requests.push("INSERT A 0 understand\n");
+        requests.push("INSERT A 1 sweater\n");
+        requests.push("INSERT A 2 frank\n");
 
-    requests.push("INTERSECTION\n");
-    requests.push("SYMMETRIC_DIFFERENCE\n");
-    
-    //requests.push("TRUNCATE\n");
-    
-    requests.push("TRUNCATE A\n");
-    requests.push("TRUNCATE B\n");
+        requests.push("INSERT B 6 flour\n");
+        requests.push("INSERT B 7 wonder\n");
+        requests.push("INSERT B 8 selection\n");
+
+        requests.push("INSERT A 3 violation\n");
+        requests.push("INSERT A 4 quality\n");
+        requests.push("INSERT A 5 precision\n");
+
+        requests.push("INSERT B 3 proposal\n");
+        requests.push("INSERT B 4 example\n");
+        requests.push("INSERT B 5 lake\n");
+
+        requests.push("INTERSECTION\n");
+        requests.push("SYMMETRIC_DIFFERENCE\n");
+
+        requests.push("TRUNCATE\n");
+
+        requests.push("TRUNCATE A\n");
+        requests.push("TRUNCATE B\n");
+
+        requests.push("shutdown\n");
+    }
 
     // Отправляем в цикле.
     while (!requests.empty()) {
-        join_client.send_message(requests.front().c_str());
+        const std::string req = std::move(requests.front());
+        join_client.send_message(req.c_str());
         requests.pop();
 
-        std::cout << join_client.read_reply() << std::endl;
+        std::cout << "\nCOMM: " << req;
+
+        // Если отправили запрос exit или shutdown, ответы больше не ждём.
+        if ((req.rfind("exit", 0) == 0) || (req.rfind("shutdown", 0) == 0)) {
+            break;
+        }
+
+        // Читаем ответы, пока не встретим OK или ERR.
+        bool last_reply{ false };
+
+        while(!last_reply) {
+            const std::string crepl = std::move(join_client.read_reply());
+            last_reply = ((crepl.rfind("ERR", 0) == 0) || (crepl.rfind("OK", 0) == 0));
+            std::cout << "REPL: " << crepl;
+        }
     }
-        
-    // Выключаем сервер.
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    join_client.send_message("shutdown");
-    
+
 
     return 0;
 }

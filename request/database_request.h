@@ -25,21 +25,26 @@ struct DatabaseRequest
 		: request_type(RequestType::UNKNOWN)
 		, data_table(DataTable::UNKNOWN)
 		, id(-1)
-		, name("")
 	{}
 	
+	explicit DatabaseRequest(const char* err_txt)
+		: request_type(RequestType::UNKNOWN)
+		, data_table(DataTable::UNKNOWN)
+		, id(-1)
+		, name("")
+		, request_error(err_txt)
+	{}
+
 	explicit DatabaseRequest(RequestType rtype)
 		: request_type(rtype)
 		, data_table(DataTable::UNKNOWN)
 		, id(-1)
-		, name("")
 	{}
 	
 	explicit DatabaseRequest(RequestType rtype, DataTable table)
 		: request_type(rtype)
 		, data_table(table)
 		, id(-1)
-		, name("")
 	{}
 	
 	explicit DatabaseRequest(RequestType rtype, DataTable table, int id_value, const std::string& txt)
@@ -72,4 +77,7 @@ struct DatabaseRequest
 	const DataTable data_table;
 	const int id;
 	const std::string name;
+
+	// Описание ошибки в запросе.
+	const std::string request_error;
 };

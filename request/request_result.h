@@ -5,6 +5,7 @@
 
 enum class ResultType
 {
+	UNKNOWN, 
 	OK,
 	ERR
 };
@@ -24,6 +25,11 @@ struct RequestResult
 		: res_type(rt)
 		, error_text(et)
 	{}
+
+	void clear() {
+		res_type = ResultType::UNKNOWN;
+		error_text.clear();
+	}
 
 	ResultType res_type;
 

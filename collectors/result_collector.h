@@ -3,19 +3,25 @@
 #include "../interfaces/interface_res_collector.h"
 
 #include <map>
+#include <queue>
 #include <mutex>
 
-// Коллекция пар id сессии и результат выполнения запроса.
-using result_map = std::map<int, RequestResult>;
+// Коллекция id сессий и результатов выполнения запросов.
+using result_map = std::map<int, std::queue<RequestResult>>;
 
+/**
+* @brief Класс для сбора результатов выполнения запросов к базе данных.
+*/
 class ResultCollector final : public IResCollector
 {
 public:
 	void add_result(const int session_id, const RequestResult& result) override;
 
-	RequestResult get_result(const int session_id) override;
+	RequestResult front_result(const int session_id) override;
 
-	void del_result(const int session_id) override;
+	void pop_result(const int session_id) override;
+
+	bool has_result(const int session_id) override;
 
 	bool empty() override;
 

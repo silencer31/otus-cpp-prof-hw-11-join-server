@@ -3,7 +3,7 @@
 #include <memory>
 
 /**
-* @brief Класс
+* @brief Класс интерфейс для реагирования на выполненный запрос.
 */
 class IAwaitor
 {

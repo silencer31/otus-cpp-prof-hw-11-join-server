@@ -14,8 +14,6 @@ using res_coll_shared = std::shared_ptr<IResCollector>;
 
 /****
 * @brief Класс реализует отправку запросов к базе данных.
-* 
-*
 */
 
 class DatabaseManager
@@ -60,6 +58,10 @@ public:
 
 	bool active() const {
 		return thread_active;
+	}
+
+	bool in_progress() const {
+		return committing_request;
 	}
 
 private: // Methods
@@ -118,7 +120,8 @@ private:
 	const std::string database_path;
 
 	std::atomic<bool> done{ false }; // Больше нет данных для обработки.
-	bool thread_active{ false };
+	bool thread_active{ false }; // Флаг, что процесс ещё выполняется.
+	bool committing_request{ false }; // Флаг, что в данный момент идёт выполнение запроса к базе.
 
 	std::thread requests_thread;
 

@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 JoinServer::JoinServer(boost::asio::io_context& io_context, const unsigned short port, const std::string& db_name)
 	: parser_ptr( std::make_shared<CommandParser>() )
 	, notifier_ptr(std::make_shared<SessionNotifier>())
@@ -21,7 +22,7 @@ JoinServer::JoinServer(boost::asio::io_context& io_context, const unsigned short
 
 JoinServer::~JoinServer()
 {
-	std::cout << "Join_Destructor" << std::endl;
+	std::cout << "Join server Destructor" << std::endl;
 }
 
 void JoinServer::do_accept()
@@ -74,42 +75,69 @@ void JoinServer::do_accept()
 }
 
 // Получена команда на выключение сервера.
-void JoinServer::shutdown_server(int session_id)
+void JoinServer::shutdown_server(const int session_id)
 {
-	std::cout << "Bulk server: Exit request received from session id: " << session_id << std::endl;
+	// Проверяем, завершает ли уже сервер работу.
+	if (shutdown_flag) { return; }
 
+	std::cout << "Join server: Shutdown request received from session id: " << session_id << std::endl;
+
+	// Ставим флаг для прекращения приёма новых соединений.
 	shutdown_flag = true;
 
-	// Выключение вызвавшей сессии.
-	close_session(session_id);
-
-	// В цикле завершаем все сессии.
+	// Сообщаем всем сессиям, что необходимо прекратить приём новых запросов.
 	for (const auto& [id, session_ptr] : sessions) {
-		if (id != session_id) { // Пропускаем сессию, от которой пришел сигнал на завершение.
-			notifier_ptr->rem_awaitor(id);
-			session_ptr->shutdown();
+		session_ptr->stop_activity();
+	}
+
+	// Ждём когда каждая сессия прекратит получение данных от клиента.
+	for (const auto& [id, session_ptr] : sessions) {
+		while (session_ptr->receiving()) {
+			std::this_thread::sleep_for(std::chrono::seconds(1));
 		}
 	}
 
-	// Отключаем прием новых соединений.
-	acceptor_.cancel();
+	// Ожидаем завершения выполнения всех запросов к базе.
+	while (db_manager_ptr->in_progress()) {
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 
+	// Ждём когда каждая сессия прекратит отправку результатов запросов.
+	for (const auto& [id, session_ptr] : sessions) {
+		while (session_ptr->sending()) {
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
+	}
+
+	// В цикле завершаем все сессии.
+	for (const auto& [id, session_ptr] : sessions) {
+		session_ptr->shutdown_session();
+	}
+
+	// Останавливаем поток обработки запросов к базе данных.
 	db_manager_ptr->stop_process();
 
-	// Ждём корректного завершения всех потоков.
+	// Ждём завершения потока.
 	while (db_manager_ptr->active()) {
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
+
+	// Отключаем прием новых соединений.
+	acceptor_.cancel();	
 }
 
 // Закрытие сессии.
-void JoinServer::close_session(int session_id)
+void JoinServer::close_session(const int session_id)
 {
 	std::cout << "Join server: Session will be closed: " << session_id << std::endl;
 
-	notifier_ptr->rem_awaitor(session_id);
-
-	sessions[session_id]->shutdown();
+	sessions[session_id]->shutdown_session();
 	sessions.erase(session_id);
 	session_number--;
+}
+
+// Удалить сессию из списка клиентов, ожидающих результат выполнения запроса.
+void JoinServer::remove_awaitor(const int session_id)
+{
+	notifier_ptr->rem_awaitor(session_id);
 }

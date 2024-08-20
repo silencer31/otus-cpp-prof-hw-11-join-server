@@ -40,6 +40,7 @@ add_executable(join_server
 	notifier/session_notifier.cpp
 	network/server/join_server.cpp
 	network/session/client_session.cpp
+	network/session/client_session_handle.cpp
 	database/database_manager.cpp
 	database/sql/sql_manager.cpp
 	collectors/request_collector.cpp
@@ -53,6 +54,7 @@ add_executable(join_server
 	notifier/session_notifier.cpp
 	network/server/join_server.cpp
 	network/session/client_session.cpp
+	network/session/client_session_handle.cpp
 	database/database_manager.cpp
 	database/sql/sql_manager.cpp
 	collectors/request_collector.cpp

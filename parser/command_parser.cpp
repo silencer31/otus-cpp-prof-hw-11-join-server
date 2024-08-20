@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-DatabaseRequest CommandParser::parse_command(const std::string& command, std::string& error)
+DatabaseRequest CommandParser::parse_command(const std::string& command)
 {
 	// Разделяем полученные данные через пробел.
 	std::vector<std::string> strings;
@@ -24,15 +24,13 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 
 	// 
 	if (strings.size() > 4) {
-		error = "command contains too many arguments";
-		return DatabaseRequest();
+		return DatabaseRequest("command contains too many arguments");
 	}
 
 	// INSERT - добавление данных в таблицу.
 	if (strings.at(0) == "INSERT") {
 		if (strings.size() != 4) {
-			error = "unsupported request format";
-			return DatabaseRequest();
+			return DatabaseRequest("unsupported request format");
 		}
 
 		// Имя таблицы.
@@ -45,8 +43,7 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 			table_name = DataTable::B;
 		}
 		else {
-			error = "incorrect table name";
-			return DatabaseRequest();
+			return DatabaseRequest("incorrect table name");
 		}
 
 		// id
@@ -57,12 +54,10 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 			id_value = std::stoi(strings.at(2), &pos);
 		}
 		catch (std::invalid_argument const& ex) {
-			error = ex.what();
-			return DatabaseRequest();
+			return DatabaseRequest(ex.what());
 		}
 		catch (std::out_of_range const& ex) {
-			error = ex.what();
-			return DatabaseRequest();
+			return DatabaseRequest(ex.what());
 		}
 
 		return DatabaseRequest(RequestType::INSERT, table_name, id_value, strings.at(3));
@@ -71,8 +66,7 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 	// TRUNCATE - очистка указанной таблицы.
 	if (strings.at(0) == "TRUNCATE") {
 		if (strings.size() != 2) {
-			error = "unsupported request format";
-			return DatabaseRequest();
+			return DatabaseRequest("unsupported request format");
 		}
 
 		if (strings.at(1) == "A") {
@@ -83,8 +77,7 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 			return DatabaseRequest(RequestType::TRUNCATE, DataTable::B);
 		}
 
-		error = "incorrect table name";
-		return DatabaseRequest();
+		return DatabaseRequest("incorrect table name");
 	}
 
 	// INTERSECTION - пересечение множеств.
@@ -97,6 +90,5 @@ DatabaseRequest CommandParser::parse_command(const std::string& command, std::st
 		return DatabaseRequest(RequestType::DIFFERENCE);
 	}
 
-	error = "unknown request type";
-	return DatabaseRequest();
+	return DatabaseRequest("unknown request type");
 }

@@ -7,6 +7,9 @@
 // Для коллекции сессий - ожидателей результата.
 using awaitors_map = std::map<int, awaitor_shared>;
 
+/**
+* @brief Класс реализующий оповещение сессий, ожидающих результат выполнения запроса.
+*/
 class SessionNotifier final : public INotifier
 {
 public:

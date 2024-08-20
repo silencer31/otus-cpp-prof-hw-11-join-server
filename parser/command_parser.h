@@ -4,6 +4,9 @@
 
 #include <memory>
 
+/**
+* @brief Класс реализует преобразование строки в сформированный запрос к базе данных.
+*/
 class CommandParser final : public IParser
 {
 public:
@@ -13,9 +16,8 @@ public:
 	/**
 	* Анализ полученной команды.
 	* @param command команда, которую нужно распарсить.
-	* @param error текст ошибки анализа
 	*/
-	DatabaseRequest parse_command(const std::string& command, std::string& error) override;
+	DatabaseRequest parse_command(const std::string& command) override;
 };
 
 using parser_shared = std::shared_ptr<IParser>;

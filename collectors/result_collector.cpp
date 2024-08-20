@@ -2,23 +2,48 @@
 
 void ResultCollector::add_result(const int session_id, const RequestResult& result)
 {
-	std::lock_guard<std::mutex> guard(data_mtx);
-    results[session_id] = result;
+    std::lock_guard<std::mutex> guard(data_mtx);
+
+    if (results.find(session_id) == results.end()) {
+        //const 
+        results[session_id] = std::queue<RequestResult>();
+    }
+
+    results[session_id].push(result);
 }
 
-RequestResult ResultCollector::get_result(const int session_id)
+RequestResult ResultCollector::front_result(const int session_id)
+{
+    std::lock_guard<std::mutex> guard(data_mtx);
+    
+    if (results.find(session_id) == results.end()) {
+        return RequestResult(ResultType::UNKNOWN);
+    }
+    
+    return results[session_id].front();
+}
+
+void ResultCollector::pop_result(const int session_id)
+{
+    std::lock_guard<std::mutex> guard(data_mtx);
+    
+    if (results.find(session_id) == results.end()) {
+        return;
+    }
+
+    results[session_id].pop();
+}
+
+bool ResultCollector::has_result(const int session_id)
 {
     std::lock_guard<std::mutex> guard(data_mtx);
 
-    return results.contains(session_id) ? results[session_id] : RequestResult(ResultType::ERR);
-}
+    if (results.find(session_id) == results.end()) {
+        return false;
+    }
 
-void ResultCollector::del_result(const int session_id)
-{
-    std::lock_guard<std::mutex> guard(data_mtx);
-    results.erase(session_id);
+    return !results[session_id].empty();
 }
-
 
 bool ResultCollector::empty()
 {

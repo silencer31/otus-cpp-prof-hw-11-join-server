@@ -2,16 +2,18 @@
 
 #include "../interfaces/interface_req_collector.h"
 
-#include <queue>
 #include <mutex>
 
 // Коллекция пар id сессии и запрос к базе данных.
 using request_queue = std::queue<session_request>;
 
+/**
+* @brief Класс для сбора запросов к базе данных от клиентов.
+*/
 class RequestCollector final : public IReqCollector
 {
 public:
-	void add_request(int session_id, const DatabaseRequest& request) override;
+    void add_requests(int session_id, std::queue<DatabaseRequest>& new_requests) override;
 
     session_request front() override;
 
